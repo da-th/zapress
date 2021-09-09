@@ -1,5 +1,5 @@
 {
-    "name": "security-tests-with-owasp-zap-cypress",
+    "name": "zapress",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -7,6 +7,7 @@
         "start": "cypress open --config-file cypress-localhost.json",
         "local:cypress": "cypress run --config-file cypress-localhost.json --browser chrome --headless",
         "remote:cypress": "cypress run --config-file cypress.json --browser chrome --headless",
+        "local:zap-active-scan": "./active-scan-and-wait.sh",
         "remote:zap-active-scan": "./active-scan-and-wait.sh",
         "remote:all": "npm run remote:cypress && npm run remote:zap-active-scan"
     },

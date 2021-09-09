@@ -1,4 +1,5 @@
-curl -s 'http://localhost:8080/JSON/ascan/action/scan/?url=https%3A%2F%2Fjuice-shop.herokuapp.com%2F&recurse=true&inScopeOnly=false&scanPolicyName=&method=&postData=&contextId='
+curl -s 'http://localhost:8080/JSON/ascan/action/scan/?url=http%3A%2F%2Fjuice:3000%2F&recurse=true&inScopeOnly=false&scanPolicyName=&method=&postData=&contextId='
+#curl -s 'http://localhost:8080/JSON/ascan/action/scan/?url=https%3A%2F%2Fjuice-shop.herokuapp.com%2F&recurse=true&inScopeOnly=false&scanPolicyName=&method=&postData=&contextId='
 echo "Started active scan... "
 
 attempt_counter=0
@@ -17,7 +18,7 @@ while
   attempt_counter=$(($attempt_counter+1))
   sleep 5
 
-  [[ "$statusResult" != "{\"status\":\"100\"}" ]]
+  [ "$statusResult" != "{\"status\":\"100\"}" ]
 do true; done
 
 echo "Finished"
