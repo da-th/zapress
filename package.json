@@ -9,11 +9,12 @@
         "remote:cypress": "cypress run --config-file cypress.json --browser chrome --headless",
         "local:zap-active-scan": "./active-scan-and-wait.sh",
         "remote:zap-active-scan": "./active-scan-and-wait.sh",
+        "local:all": "npm run local:cypress && npm run local:zap-active-scan",
         "remote:all": "npm run remote:cypress && npm run remote:zap-active-scan"
     },
     "author": "",
     "license": "UNLICENSED",
     "devDependencies": {
-        "cypress": "^5.3.0"
+        "cypress": "^8.3.1"
     }
 }
