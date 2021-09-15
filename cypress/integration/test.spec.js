@@ -25,6 +25,8 @@ describe("OWASP juice shop", () => {
     });
 
     it("should type in credentials, press the login button and be logged in", () => {
+        cy.get("button[aria-label='Show the shopping cart']").should("not.exist");
+
         cy.get("#login-form").within(() => {
             cy.get("#email").type("mc.safesearch@juice-sh.op");
             cy.get("#password").type("Mr. N00dles");
@@ -32,14 +34,25 @@ describe("OWASP juice shop", () => {
 
             cy.get("#loginButton").click();
         });
+
+        cy.get("button[aria-label='Show the shopping cart']").should("exist");
     });
 
-    it("should open and close the item detail and further browse the site", () => {
-        cy.get(".ribbon-card").first().click();
-        cy.get("mat-dialog-content").should("exist");
+    it("should open profile and add username", () => {
+        cy.get("button#navbarAccount").click();
+        cy.get("button#navbarLoginButton").click();
 
-        cy.get("button[aria-label='Close Dialog']").click();
-        cy.get("mat-dialog-content").should("not.exist");
+        cy.url().should("include", "login");
+
+        cy.get("#login-form").within(() => {
+          cy.get("#email").type("mc.safesearch@juice-sh.op");
+          cy.get("#password").type("Mr. N00dles");
+          cy.get("#rememberMe").click();
+
+          cy.get("#loginButton").click();
+        });
+
+        cy.get("button[aria-label='Show the shopping cart']").should("exist");
 
         cy.visit("/profile");
 
@@ -47,6 +60,18 @@ describe("OWASP juice shop", () => {
         cy.get("#submit").click();
 
         cy.visit("/rest/user/data-export", { failOnStatusCode: false })
+    });
+
+    it("should open and close the item detail", () => {
+        cy.visit("/");
+        cy.get("button[aria-label='Close Welcome Banner']").click();
+        cy.get("a[aria-label='dismiss cookie message']").click();
+
+        cy.get(".ribbon-card").first().click();
+        cy.get("mat-dialog-container").should("exist");
+
+        cy.get("button[aria-label='Close Dialog']").click();
+        cy.get("mat-dialog-container").should("not.exist");
     });
 
     it("should visit the score board", () => {
