@@ -1,24 +1,34 @@
 #! /bin/sh
 
-protocol=$2
-host=$3
-
 scanType=""
 currentScanId=""
 sleep=""
+
+protocol=""
+host=""
 
 self=$(basename $0)
 
 usage() {
     cat << EOF
 
-    Usage: $self <protocol> <host>
+    Usage: $self -<scan type> <shop>
       -s: spider scan
       -a: active scan
       -sa: spider scan and active scan one after another
 EOF
   exit 1
 }
+
+if [ "$2" = "local" ] ;then
+  protocol="http"
+  host="juice:3000"
+else
+  if [ "$2" = "remote" ] ;then
+    protocol="https"
+    host="juice-shop.herokuapp.com"
+  fi
+fi
 
 scan() {
   attempt_counter=0
@@ -77,24 +87,30 @@ scanInfo="$(curl -s 'http://localhost:8080/JSON/ascan/action/scan/?url='${protoc
 
 currentScanId=$(echo ${scanInfo} | cut -c10-$((${#scanInfo}-2)))
 
-echo "Started active scan (ID: ${currentScanId})... "
-echo ""
+if echo "$currentScanId" | grep -Eq "[a-zA-Z]"; then
+  echo ""
+  echo "ERROR: No scan (via cypress or spider) run before this active scan."
+  return 0
+else
+  echo "Started active scan (ID: ${currentScanId})... "
+  echo ""
 
-scan
+  scan
 
-scanResults="$(curl -s 'http://localhost:8080/JSON/ascan/view/alertsIds/?scanId='${currentScanId})"
-echo ""
-echo "Scan results: ${scanResults}"
-echo ""
-echo "Active scan finished"
-echo "#########################################"
+  scanResults="$(curl -s 'http://localhost:8080/JSON/ascan/view/alertsIds/?scanId='${currentScanId})"
+  echo ""
+  echo "Scan results: ${scanResults}"
+  echo ""
+  echo "Active scan finished"
+  echo "#########################################"
+fi
 }
 
 #####################################
 # main
 #####################################
 
-if [ $# != 3 ]; then usage; fi
+if [ $# != 2 ]; then usage; fi
 
   opt="$1"
   case "$opt" in
