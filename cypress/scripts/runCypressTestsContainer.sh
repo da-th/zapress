@@ -40,7 +40,7 @@ case "$1" in
     # Usage: $0 start; ...; vncviewer localhost:5901
     VNC_ENABLED=1
     shift
-    runInContainer start all "$@"
+    runInContainer start "$@"
   ;;
   test|test_electron|test_chrome|test_firefox|test_edge)
     # Runs all tests headless
