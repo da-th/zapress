@@ -56,7 +56,7 @@ run() {
   #local_ip=$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')
   #docker swarm init --advertise-addr $local_ip
   #docker stack deploy -c docker-compose.yml demo_test_app
-  docker-compose -f zap_juice.yml up -d
+  docker-compose -f zap_juice.yml up -d --build
 }
 
 shutdown() {
