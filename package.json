@@ -4,17 +4,13 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "cypress open --config-file cypress-localhost.json",
-        "local:cypress": "cypress run --config-file cypress-localhost.json --browser chrome --headless",
-        "remote:cypress": "cypress run --config-file cypress.json --browser chrome --headless",
-        "local:zap-active-scan": "./active-scan-and-wait.sh",
-        "remote:zap-active-scan": "./active-scan-and-wait.sh",
-        "local:all": "npm run local:cypress && npm run local:zap-active-scan",
-        "remote:all": "npm run remote:cypress && npm run remote:zap-active-scan"
+        "start": "cypress open",
+        "test": "cypress run"
     },
     "author": "",
     "license": "UNLICENSED",
+    "repository": "",
     "devDependencies": {
-        "cypress": "^8.3.1"
+        "cypress": "8.3.1"
     }
 }
