@@ -1,6 +1,0 @@
-FROM owasp/zap2docker-stable AS zapwrapp
-
-# Stage that contains the bash script wrapper zap.sh with some default arguments so it binds to 0.0.0.0:8080 as daemon without API key
-COPY ./configs/ /zap/configs/
-
-CMD ["zap.sh", "-daemon", "-silent", "-host", "0.0.0.0", "-port", "8080", "-config", "api.addrs.addr.name=.*", "-config", "api.addrs.addr.regex=true", "-config", "api.disablekey=true"]
