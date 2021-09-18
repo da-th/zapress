@@ -14,13 +14,11 @@
 set -e
 
 PRJDIR="$(cd "$(dirname "$0")"/../.. && pwd)"
-#echo "rCTC: " $(pwd) #todo
 PRJNAME="${PWD##*/}"
-#echo $(PRJNAME) #todo
 
 runInContainer() {
   # TODO: use unprivileged user (-u) within container instead (requires to fix some permissions/user issues within the container first)
-  docker build --force-rm -t cypress "$PRJDIR"
+  docker build --force-rm -t cypress -f Cypress_Dockerfile "$PRJDIR"
   docker run -it --rm \
     -v "$PRJDIR/cypress:/e2e/cypress" \
     -v "$PRJDIR/cypress.json:/e2e/cypress.json" \
