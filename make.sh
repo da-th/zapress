@@ -8,9 +8,6 @@ self=$(basename $0)
 
 proxy_host=localhost
 
-#export NVM_DIR=$HOME/.nvm;
-#source $NVM_DIR/nvm.sh;
-
 usage() {
     cat << EOF
 
@@ -39,6 +36,8 @@ show_node() {
 
 configure_node() {
   echo "configure node version..."
+  #export NVM_DIR=$HOME/.nvm;
+  #source $NVM_DIR/nvm.sh;
   # use declarated node version (taken from .nvmrc)
   #nvm use
   #npm i
@@ -105,10 +104,9 @@ zap() {
   sh ./zap/scripts/zapScan.sh "$@"
 }
 
-zap_headless_local_active() {
+zap_active_headless_local() {
   echo "start ZAP active scan headless on local juice shop..."
-  sh ./zap/scripts/zapScan.sh -a local
-  #zap -a local
+  zap -a local
 }
 
 #####################################
@@ -116,8 +114,6 @@ zap_headless_local_active() {
 #####################################
 
 cd $dir
-
-if [ $# != 1  ]; then usage; fi
 
 while [ $# > 0  ]; do
   opt="$1"
@@ -128,15 +124,14 @@ while [ $# > 0  ]; do
     -renv) shift && run;;
     -senv) shift && shutdown;;
     -lenv) shift && leave ;;
-    -cd) shift && cypress_docker;;
-    -cn) shift && cypress_native;;
+    -cd) shift && cypress_docker "$@";;
+    -cn) shift && cypress_native "$@";;
     -cdhl) shift && cypress_docker_headless_local;;
     -cdvl) shift && cypress_docker_visual_local;;
     -cnhl) shift && cypress_native_headless_local;;
     -cnvl) shift && cypress_native_visual_local;;
-    -z) shift && zap;;
-    -zahl) shift && zap_headless_local_active;;
+    -z) shift && zap "$@";;
+    -zahl) shift && zap_active_headless_local;;
     -h|*) usage ;;
   esac
-  #shift
 done
