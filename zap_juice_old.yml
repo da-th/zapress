@@ -8,13 +8,9 @@ services:
       - "3000:3000"
     restart: always
   zap:
-    build:
-      context: ./zap
-      dockerfile: Zap_Dockerfile
+    image: jverhoelen/owasp-zap-with-entrypoint
     container_name: zap
     user: zap
     ports:
       - "8080:8080"
-    volumes:
-      - ./zap/configs:/zap/configs
     restart: always
