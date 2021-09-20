@@ -70,11 +70,13 @@ leave() {
 
 cypress_docker() {
   echo "start Cypress in Docker container..."
+  sh ./zap/scripts/zapScan.sh -pso
   sh ./cypress/scripts/runCypressTestsContainer.sh "$@"
 }
 
 cypress_native() {
   echo "start Cypress in Docker container..."
+  sh ./zap/scripts/zapScan.sh -pso
   sh ./cypress/scripts/runCypressTests.sh "$@"
 }
 
