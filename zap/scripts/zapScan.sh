@@ -16,10 +16,11 @@ self=$(basename $0)
 usage() {
     cat << EOF
 
-    Usage: $self -<option> <shop>
-      -${green}sp${reset}: ${green}SP${reset}ider scan
-      -${green}asp${reset}: ${green}A${reset}jax ${green}SP${reset}ider scan
-      -${green}as${reset}: ${green}A${reset}ctive ${green}S${reset}can
+    Usage: $self -<option>
+      -${green}pso${reset}: ${green}P${reset}assive ${green}S${reset}canner ${green}O${reset}n
+      -${green}sp${reset}: ${green}SP${reset}ider scan | <shop>
+      -${green}asp${reset}: ${green}A${reset}jax ${green}SP${reset}ider scan | <shop>
+      -${green}as${reset}: ${green}A${reset}ctive ${green}S${reset}can | <shop>
 EOF
   exit 1
 }
@@ -36,6 +37,7 @@ else
       echo "#########################################"
       echo "Parameter for shop is missing!"
       echo "#########################################"
+      usage
       exit 1
     fi
   fi
@@ -143,8 +145,9 @@ scanInfo="$(curl -s 'http://localhost:8080/JSON/ascan/action/scan/?url='${protoc
 currentScanId=$(echo ${scanInfo} | cut -c10-$((${#scanInfo}-2)))
 
 if echo "$currentScanId" | grep -Eq "[a-zA-Z]"; then
-  echo ""
-  echo "ERROR: No scan (via cypress or spider) run before this active scan."
+  echo "####################################################################"
+  echo "ERROR: No scan (via cypress or spider) ran before this active scan."
+  echo "####################################################################"
   return 0
 else
   echo "Started active scan (ID: ${currentScanId})... "
@@ -165,13 +168,13 @@ fi
 # main
 #####################################
 
-#if [ $# != 2 ]; then usage; fi
-
+while [ $# > 0  ]; do
   opt="$1"
   case "$opt" in
-    -pso) allPassiveScannerOn;;
-    -sp) allPassiveScannerOn && spiderScan;;
-    -asp) allPassiveScannerOn && ajaxSpiderScan;;
-    -as) activeScan;;
+    -pso) shift && allPassiveScannerOn;;
+    -sp) shift && allPassiveScannerOn && spiderScan;;
+    -asp) shift && allPassiveScannerOn && ajaxSpiderScan;;
+    -as) shift && activeScan;;
     -h|*) usage ;;
   esac
+done
