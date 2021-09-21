@@ -1,5 +1,8 @@
 #! /bin/sh
 
+green=`tput setaf 2`
+reset=`tput sgr0`
+
 scanType=""
 currentScanId=""
 sleep=""
@@ -13,10 +16,10 @@ self=$(basename $0)
 usage() {
     cat << EOF
 
-    Usage: $self -<scan type> <shop>
-      -s: spider scan
-      -as: ajax spider scan
-      -a: active scan
+    Usage: $self -<option> <shop>
+      -${green}sp${reset}: ${green}SP${reset}ider scan
+      -${green}asp${reset}: ${green}A${reset}jax ${green}SP${reset}ider scan
+      -${green}as${reset}: ${green}A${reset}ctive ${green}S${reset}can
 EOF
   exit 1
 }
@@ -167,8 +170,8 @@ fi
   opt="$1"
   case "$opt" in
     -pso) allPassiveScannerOn;;
-    -s) allPassiveScannerOn && spiderScan;;
-    -as) allPassiveScannerOn && ajaxSpiderScan;;
-    -a) activeScan;;
+    -sp) allPassiveScannerOn && spiderScan;;
+    -asp) allPassiveScannerOn && ajaxSpiderScan;;
+    -as) activeScan;;
     -h|*) usage ;;
   esac

@@ -11,17 +11,17 @@ proxy_host=localhost
 usage() {
     cat << EOF
 
-    Usage: $self
+    Usage: $self -<option>
       -${green}renv${reset}: ${green}R${reset}un ${green}ENV${reset}ironment (juice shop + zap (both dockerized))
       -${green}senv${reset}: ${green}S${reset}hutdown ${green}ENV${reset}ironment (docker)
       -${green}lenv${reset}: ${green}L${reset}eave ${green}ENV${reset}ironment (docker swarm)
-      -${green}cd${reset}: run ${green}C${reset}ypress in ${green}D${reset}ocker container
-      -${green}cn${reset}: run ${green}C${reset}ypress ${green}N${reset}ative
+      -${green}cd${reset}: run ${green}C${reset}ypress in ${green}D${reset}ocker container | <test type> <test scenario> <shop>
+      -${green}cn${reset}: run ${green}C${reset}ypress ${green}N${reset}ative | <test type> <test scenario> <shop>
       -${green}cdhl${reset}: run ${green}C${reset}ypress in ${green}D${reset}ocker container, ${green}H${reset}eadless (chrome) on ${green}L${reset}ocal shop
       -${green}cdvl${reset}: run ${green}C${reset}ypress in ${green}D${reset}ocker container, ${green}V${reset}isual on ${green}L${reset}ocal shop
       -${green}cnhl${reset}: run ${green}C${reset}ypress ${green}N${reset}ative, ${green}H${reset}eadless (chrome) on ${green}L${reset}ocal shop
       -${green}cnvl${reset}: run ${green}C${reset}ypress in ${green}N${reset}ative, ${green}V${reset}isual on ${green}L${reset}ocal shop
-      -${green}z${reset}: run ${green}Z${reset}ap -<scan type> <shop>
+      -${green}z${reset}: run ${green}Z${reset}ap | -<scan type> <shop>
       -${green}zahl${reset}: run ${green}Z${reset}ap ${green}A${reset}ctive-scan, ${green}H${reset}eadless on ${green}L${reset}ocal shop
 EOF
   exit 1
@@ -108,7 +108,7 @@ zap() {
 
 zap_active_headless_local() {
   echo "start ZAP active scan headless on local juice shop..."
-  zap -a local
+  zap -as local
 }
 
 #####################################
