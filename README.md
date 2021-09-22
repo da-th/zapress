@@ -1,51 +1,39 @@
-# DevSecOps: Testing Web Apps w/ Cypress & OWASP ZAP
+# Learn how to make your apps more secure with Cypress & OWASP ZAP
 
-1. [Cypress](https://www.cypress.io) is an UI/E2E testing framework for web applications. You know Selenium? Cypress is more awesome in every aspect. [See why in an article by me](https://blog.codecentric.de/en/2020/10/cypress-ui-end2end-testing/)
-2. [OWASP ZAP](https://www.zaproxy.org/) is web app security scanner. It gathers traffic using a proxy, further explore, passive and active scan web applications for potential vulnerabilities.
-3. [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) is an intentionally insecure web application for training and education purposes.
+ This set of apps build an environment to learn how to test for threads in an web app.
 
-## Why and How?
-### Combining two great tools for a greater goal
+ 1. [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) is an example shop
+ with intentional build in insecureties. The challange is to find them.
+ But this is more than only a shop. It shows you when you had discovered an insecurity
+ or teach you in various lessons what they are and how to find them, as well. The
+ project leader provides a book about this application and its use:
+ - Online: https://pwning.owasp-juice.shop/
+ - PDF/MOBI/EPUB: https://leanpub.com/juice-shop.
+ 2. [Cypress](https://www.cypress.io) is the new "Selenium", so an UI/E2E testing
+ framework. It's awsome <find article linkto post here>
+ 3. [OWASP ZAP](https://www.zaproxy.org/) is a security scanner fpr web apps. It can
+ find potential vulnerabilities by analyse traffic using a proxy, passive and active
+ scan and more.
 
-These tools can be combined in an interesting way. **Cypress** can proxy all of its traffic generated during test execution through **OWASP ZAP**. ZAP will roughly learn which sites the web app under test has. It gathers security alerts found in the traffic. Afterwards ZAP can run active scans against the application in addition. These try some active attacks against the site, such as SQL injections or Cross-Site-Scripting attempts. OWASP ZAP afterwards provides reports including all found vulnerabilities.
+# Preconditions
 
-### OWASP Juice Shop as demo application
+1. (Required) [Docker](https://github.com/docker/docker-install) Do you need an
+explanation, really? Container based virtualization of apps or their parts, provided as
+service.
 
-The famous JS has a fair amount of serious vulnerabilities. Therefor it's perfect for demonstrating what kind of vulnerabilities and smells can be discovered with automated click tests and active scanning.
+2. (Required) [Docker-Compose](https://github.com/docker/compose) is able to handle
+docker container in its context or dependancies (networks between,...).
 
-## Running it
+3. (Required) [NPM](https://github.com/npm/cli) is a java script package manager
+(node.js).
 
-### Locally against remote Juice Shop
+4. (Optional but recommended) [NVM](https://github.com/nvm-sh/nvm) make id possible to switch between versions
+of npm per project. So one can run the application in the matching npm version. Here
+the recommended version is v12.15.0 .
 
-Juice Shop is up already on: https://juice-shop.herokuapp.com
 
-Start OWASP ZAP in headless mode using Docker, as we just need its HTTP API, on `http://localhost:8080`:
-
-```bash
-docker run -u zap -p 8080:8080 jverhoelen/owasp-zap-with-entrypoint
-# this image is a variant of https://github.com/zaproxy/zaproxy/blob/develop/docker/Dockerfile-bare
-# it has been built from file https://github.com/jverhoelen/zaproxy/blob/develop/docker/Dockerfile-bare-entrypoint
-# it just runs ZAP as Docker entrypoint using its bash script wrapper zap.sh with some default arguments so it binds to 0.0.0.0:8080 as daemon without API key
-```
-
-Configure ZAP as proxy for Cypress and run tests:
-
-```bash
-nvm use
-npm i
-
-export HTTP_PROXY=http://localhost:8080
-export HTTPS_PROXY=http://localhost:8080
-
-npm run remote:cypress
-npm run remote:zap-active-scan
-# or "npm run remote:all" for both after another
-```
-
-### Locally against dockerized Juice Shop
-
-Unfortunately this is hard to achieve since Cypress is limited to proxy traffic **not from localhost**. Juice Shop is nicely dockerized and can be started easily (`docker run -p 3000:3000 bkimminich/juice-shop`). However, it is then available on `localhost:3000`. Cypress test traffic will therefor not be proxied through ZAP. Also the approach of adding a line such as `127.0.0.1     juiceshop` to `/etc/hosts` does not work as dockerized ZAP is not able to access the Juice Shop via a host entry from within Docker.
-
-This is also a problem in CI environments when trying to run Juice Shop as a "service" (Gitlab CI and Github actions offer this feature). Services in most CI systems are exposed via `localhost` or a host entry which is then not proxyable by Cypress or not accessible via host entry by ZAP. That's the reason for targeting a hosted variant on the internet.
-
-If you've got a solution to run all involed applications locally or in CI while allowing the tested web app traffic to be proxied, feel free to contribute or hit me up :-)
+# Inspiration
+ Zapress was inspired by the project "jverhoelen/owasp-zap-with-entrypoint".
+ Unfortunately this project seems to be abandond and had dependencies to an other not
+ supported project of the same author.
+ So I decided to build this new only whith dependencies which are well maintained.
