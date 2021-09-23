@@ -35,19 +35,18 @@ show_node() {
 }
 
 configure_node() {
-  echo "configure node version..."
+  echo "switch node version for matching project needs..."
   #export NVM_DIR=$HOME/.nvm;
   #source $NVM_DIR/nvm.sh;
   # use declarated node version (taken from .nvmrc)
-  #nvm use
-  #npm i
+  nvm use
+  npm i
 }
 
 omit() {
-  echo "omit configuration for node version..."
-  # use declarated node version (taken from .nvmrc)
-  #nvm use node
-  #nvm alias default node
+  echo "switch node version to newest installed..."
+  # use newest installed node version
+  nvm use node
 }
 
 run() {
@@ -70,7 +69,7 @@ leave() {
 
 cypress_docker() {
   echo "start Cypress in Docker container..."
-  sh ./zap/scripts/zapScan.sh -pso
+  #sh ./zap/scripts/zapScan.sh -pso
   sh ./cypress/scripts/runCypressTestsContainer.sh "$@"
 }
 
