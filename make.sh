@@ -69,7 +69,7 @@ leave() {
 
 cypress_docker() {
   echo "start Cypress in Docker container..."
-  #sh ./zap/scripts/zapScan.sh -pso
+  sh ./zap/scripts/zapScan.sh -pso
   sh ./cypress/scripts/runCypressTestsContainer.sh "$@"
 }
 
