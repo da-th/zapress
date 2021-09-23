@@ -29,7 +29,8 @@ docker container in its context or dependancies (networks between,...).
 
 4. (Optional but recommended) [NVM](https://github.com/nvm-sh/nvm) make id possible to switch between versions
 of npm per project. So one can run the application in the matching npm version. Here
-the recommended version is v12.15.0 .
+the recommended version is v12.15.0 . All other can fail because of not matching the needs of the system.
+NOTE: After any version change one has to perform an "npm i" to install the dependancies!
 
 
 # Inspiration
