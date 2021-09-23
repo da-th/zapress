@@ -38,6 +38,7 @@ else
       echo "#########################################"
       echo "Parameter for shop is missing!"
       echo "#########################################"
+      echo ""
       usage
       exit 1
     fi
@@ -67,6 +68,7 @@ scan() {
       echo "Max attempts reached, exiting"
       echo "#########################################"
       echo ""
+      usage
 
       # stop all running scans if it wasn't come to an end but exited
       curl -s 'http://localhost:8080/JSON/'${scanType}'/action/stopAllScans' > /dev/null
@@ -94,7 +96,7 @@ scan() {
 spiderScan() {
   scanType="spider"
   sleep=2
-  max_attempts=50
+  max_attempts=5
 
   # stop maybe still running privious scan, so there is no mess up
   curl -s 'http://localhost:8080/JSON/spider/action/stopAllScans' > /dev/null
