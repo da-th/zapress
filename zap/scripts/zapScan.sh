@@ -18,7 +18,9 @@ usage() {
     cat << EOF
 
     Usage: $self -<option>
-      -${green}pso${reset}: ${green}P${reset}assive ${green}S${reset}canner ${green}O${reset}n
+      -${green}eps${reset}: ${green}E${reset}nable ${green}P${reset}assive ${green}S${reset}canner by config file (./zap/configs/passiveScannerEnable.txt)
+      -${green}eaps${reset}: ${green}E${reset}nable ${green}A${reset}ll ${green}P${reset}assive ${green}S${reset}canner
+      -${green}daps${reset}: ${green}D${reset}isable ${green}A${reset}ll ${green}P${reset}assive ${green}S${reset}canner
       -${green}sp${reset}: ${green}SP${reset}ider scan | <shop>
       -${green}asp${reset}: ${green}A${reset}jax ${green}SP${reset}ider scan | <shop> [resultStart resultCount]
       -${green}as${reset}: ${green}A${reset}ctive ${green}S${reset}can | <shop>
@@ -34,10 +36,10 @@ else
     protocol="https"
     host="juice-shop.herokuapp.com"
   else
-    if [ "$1" != "-pso" ] ;then
-      echo "#########################################"
-      echo "Parameter for shop is missing!"
-      echo "#########################################"
+    if [ "$1" != "-eaps" ] && [ "$1" != "-daps" ] && [ "$1" != "-eps" ] ;then
+      echo "###################################################"
+      echo "Parameter for shop ('local'/'remote') is missing!"
+      echo "###################################################"
       echo ""
       usage
       exit 1
@@ -45,14 +47,52 @@ else
   fi
 fi
 
-# switch on all passive scanner
-allPassiveScannerOn() {
+# show enabled passive scanner
+showEnabledPassiveScanner() {
+  scanInfo="$(curl -s 'http://localhost:8080/JSON/pscan/view/scanners')"
+
+  enabledPassiveScanner="$(echo ${scanInfo} | cut -c12-$((${#scanInfo}-2)))"
+
+  echo "#########################################"
+  echo "Enabled passive scanner: ${enabledPassiveScanner}"
+  echo "#########################################"
+  echo ""
+}
+
+enablePassiveScanner() {
+  read scannerIds < ${prjdir}/zap/configs/passiveScannerEnable.txt
+  cleanedScannerIds="$(echo $(echo ${scannerIds} |  sed -e 's/,/%2C+/g') |  sed -e 's/ //g')"
+
+  scanInfo="$(curl -s 'http://localhost:8080/JSON/pscan/action/enableScanners/?ids='${cleanedScannerIds})"
+
+  enabledPassiveScanner="$(echo ${scanInfo} | cut -c12-$((${#scanInfo}-2)))"
+
+  echo "#########################################"
+  echo "Enabled passive scanner: ${enabledPassiveScanner}"
+  echo "#########################################"
+  echo ""
+}
+
+# enable all passive scanner
+enableAllPassiveScanner() {
   scanInfo="$(curl -s 'http://localhost:8080/JSON/pscan/action/enableAllScanners')"
 
   passiveScannerOn="$(echo ${scanInfo} | cut -c12-$((${#scanInfo}-2)))"
 
   echo "#########################################"
-  echo "All passive scanner switched on: ${passiveScannerOn}"
+  echo "Enable all passive scanner: ${passiveScannerOn}"
+  echo "#########################################"
+  echo ""
+}
+
+# disable all passive scanner
+disableAllPassiveScanner() {
+  scanInfo="$(curl -s 'http://localhost:8080/JSON/pscan/action/disableAllScanners')"
+
+  passiveScannerOff="$(echo ${scanInfo} | cut -c12-$((${#scanInfo}-2)))"
+
+  echo "#########################################"
+  echo "Disable all passive scanner: ${passiveScannerOff}"
   echo "#########################################"
   echo ""
 }
@@ -189,7 +229,10 @@ activeScan() {
 while [ $# > 0  ]; do
   opt="$1"
   case "$opt" in
-    -pso) shift && allPassiveScannerOn;;
+    -seps) shift && showEnabledPassiveScanner;;
+    -eps) shift && enablePassiveScanner;;
+    -eaps) shift && enableAllPassiveScanner;;
+    -daps) shift && disableAllPassiveScanner;;
     -sp) shift && spiderScan;;
     -asp) shift && ajaxSpiderScan "$@";;
     -as) shift && activeScan;;
