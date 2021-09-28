@@ -12,6 +12,9 @@ usage() {
     cat << EOF
 
     Usage: $self -<option>
+      -${green}shownode${reset}: ${green}SHOW${reset} of nvm used version of ${green}NODE${reset}
+      -${green}confnode${reset}: ${green}CONF${reset}igure of nvm used version of ${green}NODE${reset} and update dependancies
+      -${green}obmitnode${reset}: ${green}OBMIT${reset} of nvm used version of ${green}NODE${reset} back to the default one
       -${green}renv${reset}: ${green}R${reset}un ${green}ENV${reset}ironment (juice shop + zap (both dockerized))
       -${green}senv${reset}: ${green}S${reset}hutdown ${green}ENV${reset}ironment (docker)
       -${green}lenv${reset}: ${green}L${reset}eave ${green}ENV${reset}ironment (docker swarm)
@@ -28,32 +31,29 @@ EOF
 }
 
 show_node() {
+  . ~/.nvm/nvm.sh
   echo "#############################################################"
-  echo "# Node info:"
-  echo $(nvm ls)
+  echo "Node info:"
+  echo "$(nvm ls)"
   echo "#############################################################"
 }
 
 configure_node() {
   echo "switch node version for matching project needs..."
-  #export NVM_DIR=$HOME/.nvm;
-  #source $NVM_DIR/nvm.sh;
+  . ~/.nvm/nvm.sh
   # use declarated node version (taken from .nvmrc)
   nvm use
   npm i
 }
 
-omit() {
-  echo "switch node version to newest installed..."
-  # use newest installed node version
-  nvm use node
+omit_node() {
+  echo "switch node version to default..."
+  . ~/.nvm/nvm.sh
+  nvm use default
 }
 
 run() {
   echo "run test environment (juice shop + zap) in docker..."
-  #local_ip=$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')
-  #docker swarm init --advertise-addr $local_ip
-  #docker stack deploy -c docker-compose.yml demo_test_app
   docker-compose -f zap_juice.yml up -d --build
 }
 
@@ -62,14 +62,9 @@ shutdown() {
   docker-compose -f zap_juice.yml down
 }
 
-leave() {
-  echo "leave test environment in docker swarm..."
-  docker swarm leave --force
-}
-
 cypress_docker() {
   echo "start Cypress in Docker container..."
-  sh ./zap/scripts/zapScan.sh -pso
+  #sh ./zap/scripts/zapScan.sh -pso
   sh ./cypress/scripts/runCypressTestsContainer.sh "$@"
 }
 
@@ -121,10 +116,9 @@ while [ $# > 0  ]; do
   case "$opt" in
     -shownode) shift && show_node;;
     -confnode) shift && configure_node;;
-    -omitnode) shift && omit;;
+    -omitnode) shift && omit_node;;
     -renv) shift && run;;
     -senv) shift && shutdown;;
-    -lenv) shift && leave ;;
     -cd) shift && cypress_docker "$@";;
     -cn) shift && cypress_native "$@";;
     -cdhl) shift && cypress_docker_headless_local;;
