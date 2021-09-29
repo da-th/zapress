@@ -1,7 +1,7 @@
 {
     "name": "zapress",
-    "version": "1.5.0",
-    "description": "added configuration of zap scans via script",
+    "version": "1.5.1",
+    "description": "added configuration of zap scans via script, fixed problem with image in README.md",
     "main": "index.js",
     "scripts": {
         "start": "cypress open",
