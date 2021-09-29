@@ -35,8 +35,8 @@
 # In principle
 
 ## WARNING: Don't let run ZAP Active Scans against apps you do not have permission for!!!
-###   Because these scans may harm the application/website and can be considered as an\
-###   attack. Recommendation: Read up on the subject "ZAP" (`https://www.zaproxy.org/`).
+###   Because these scans may harm the application/website and can be considered as an
+attack. Recommendation: Read up on the subject "ZAP" (`https://www.zaproxy.org/`).
 
  This project provides the Juice Shop and the ZAP proxy, each dockerized and runable as
  one environment. The as well dockarized Cypress application can be launched if needed.
