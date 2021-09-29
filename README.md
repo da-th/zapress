@@ -68,7 +68,7 @@
 
 # First steps:
 
-## "Magig" behind that three apps run together
+## "Magic" behind that three apps run together
 * The Zapproxy docker container: Different to the original docker container it uses
 as entrypoint its bash script wrapper zap.sh with some default arguments. For more
 infos please have a look in the Zap_Dockerfile.\
