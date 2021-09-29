@@ -17,7 +17,7 @@ proxy_host=localhost
 echo ""
 echo "########################################################"
 echo ""
-echo " Setting ZAP as proxy..."
+echo " Setting up ZAP as proxy..."
 export HTTP_PROXY=http://${proxy_host}:8080
 export HTTPS_PROXY=http://${proxy_host}:8080
 
