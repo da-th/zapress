@@ -51,7 +51,7 @@
  In project directory only type
 
  ```bash
- ./make.sh
+ $ ./make.sh
  ```
 
  to get an explanation about the possible options.
@@ -74,15 +74,15 @@ as entrypoint its bash script wrapper zap.sh with some default arguments. For mo
 infos please have a look in the Zap_Dockerfile.
 - When you want to use Cypress to teach ZAP about the site structure, its traffic
 has to be run through the ZAP proxy.\
-This is done by:\
+This is done by
 
-```bash
-export HTTP_PROXY=http://localhost:8080
-export HTTPS_PROXY=http://localhost:8080
-```
+    ```bash
+    $ export HTTP_PROXY=http://localhost:8080
+    $ export HTTPS_PROXY=http://localhost:8080
+    ```
 
-before running Cypress (in the same terminal window)!\
-But this is build in for automatic execution, any time you start a Cypress test run.
+    before running Cypress (in the same terminal window)!\
+    But this is build in for automatic execution, any time you start a Cypress test run.
 - All other convinient stuff is done by sh scripts.
 
 ## Preparations
@@ -90,7 +90,7 @@ But this is build in for automatic execution, any time you start a Cypress test 
 Install the needed dependancies, because they are not committed to git.
 
  ```bash
- npm i
+ $ npm i
  ```
 
  This is only needed before the very first use or if there are updates for dependancies,
@@ -102,41 +102,41 @@ Install the needed dependancies, because they are not committed to git.
 
  1. Start dockerized environment - Juice Shop + ZAP
 
- ```bash
- ./make.sh -renv
- ```
+    ```bash
+    $ ./make.sh -renv
+    ```
 
- Now the Juice Shop is available via `http://localhost:3000` and\
- ZAP is ready: proxy via `http://localhost:8080`, scan api `http://localhost:8080/UI`.
+    Now the Juice Shop is available via `http://localhost:3000` and\
+    ZAP is ready: proxy via `http://localhost:8080`, scan api `http://localhost:8080/UI`.
 
  2. Run Cypress tests
 
- ```bash
- ./make.sh -cdhl
- ```
+    ```bash
+    $ ./make.sh -cdhl
+    ```
 
- This option sets up the route through the ZAP proxy and starts all available tests in
- a dockerized Cypress, headless (Chrome) against the Juice Shop (see step 1.).
+    This option sets up the route through the ZAP proxy and starts all available tests in
+    a dockerized Cypress, headless (Chrome) against the Juice Shop (see step 1.).
 
  3. Enable only some active scan types
 
- ```bash
- ./make.sh -z -eas
- ```
+    ```bash
+    $ ./make.sh -z -eas
+    ```
 
- As standart there are all types of active scans switched on. But this results in an
- exited run, because it lasts to long. This setup is persistent, if you do not restart
- the Zap container. So you don't have to do it every run.
+    As standart there are all types of active scans switched on. But this results in an
+    exited run, because it lasts to long. This setup is persistent, if you do not restart
+    the Zap container. So you don't have to do it every run.
 
  4. Run ZAP active scan
 
- ```bash
- ./make.sh -zahl
- ```
+    ```bash
+    $ ./make.sh -zahl
+    ```
 
-Now ZAP knows something about the structure of the Juice Shop and use this for
-attacks (active scans).\
-Watch out where you can find the file with the scan result (terminal).
+   Now ZAP knows something about the structure of the Juice Shop and use this for
+   attacks (active scans).\
+   Watch out where you can find the file with the scan result (terminal).
 
 # Next steps
 
