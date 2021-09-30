@@ -134,9 +134,9 @@ Install the needed dependancies, because they are not committed to git.
     $ ./make.sh -zahl
     ```
 
-   Now ZAP knows something about the structure of the Juice Shop and use this for
-   attacks (active scans).\
-   Watch out where you can find the file with the scan result (terminal).
+    Now ZAP knows something about the structure of the Juice Shop and use this for
+    attacks (active scans).\
+    Watch out where you can find the file with the scan result (terminal).
 
 # Next steps
 
