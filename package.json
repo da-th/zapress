@@ -7,9 +7,9 @@
         "start": "cypress open",
         "test": "cypress run"
     },
-    "author": "",
-    "license": "UNLICENSED",
-    "repository": "",
+    "author": "Daniel Thuermann",
+    "license": "MIT",
+    "repository": "https://github.com/da-th/zapress",
     "devDependencies": {
         "cypress": "8.3.1"
     }
