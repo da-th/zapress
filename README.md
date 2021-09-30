@@ -71,16 +71,16 @@
 ## "Magic" behind that three apps run together
 - The Zapproxy docker container: Different to the original docker container it uses
 as entrypoint its bash script wrapper zap.sh with some default arguments. For more
-infos please have a look in the Zap_Dockerfile.\
+infos please have a look in the Zap_Dockerfile.
 - When you want to use Cypress to teach ZAP about the site structure, its traffic
 has to be run through the ZAP proxy.\
-This is done by\
-\
+This is done by:\
+
 ```bash
 export HTTP_PROXY=http://localhost:8080
 export HTTPS_PROXY=http://localhost:8080
 ```
-\
+
 before running Cypress (in the same terminal window)!\
 But this is build in for automatic execution, any time you start a Cypress test run.
 - All other convinient stuff is done by sh scripts.
