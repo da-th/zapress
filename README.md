@@ -166,3 +166,10 @@ Install the needed dependancies, because they are not committed to git.
  Unfortunately this project seems to be abandond and had dependencies to an other not
  supported project of the same author.\
  So I decided to build this new only whith dependencies which are well maintained.
+
+# Disclaimer
+ Sure this project is set up with care. There it shouldn't give any problem. But take
+ care about against which app/website you let run especially ZAP active scans! These
+ are real attacks against vulnerabilities of the implementation and may harm it.\
+ Read about this topic to make yourself familiar with it: ["ZAP"](https://www.zaproxy.org/).\
+ You use this on your own risk!!!
