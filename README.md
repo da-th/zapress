@@ -155,21 +155,37 @@ Install the needed dependancies, because they are not committed to git.
  Juice Shop: `http://localhost:3000`
  Cypress, vizual mode (if it runs in this mode): `http://localhost:6901/`
 
+# Updates
+
+ If you want to update Cypress, be sure to change the version to the same valid value
+ in the following files:
+ 1. ./package.json
+ 2. ./Cypress_Dockerfile
+
+ Don't forget to update the dependencies by
+
+ ```bash
+ $ npm i
+ ```
+
 # Help from you!
 
  Sure, this readme may include not everything you expected. Let me know and I try to
  add topics to clearify questions.
 
-
 # Inspiration
+
  Zapress was inspired by the project "jverhoelen/owasp-zap-with-entrypoint".
  Unfortunately this project seems to be abandond and had dependencies to an other not
  supported project of the same author.\
  So I decided to build this new only whith dependencies which are well maintained.
 
 # Disclaimer
+
  Sure this project is set up with care. There it shouldn't give any problem. But take
  care about against which app/website you let run especially ZAP active scans! These
  are real attacks against vulnerabilities of the implementation and may harm it.\
  Read about this topic to make yourself familiar with it: ["ZAP"](https://www.zaproxy.org/).\
  You use this on your own risk!!!
+ It may happen, there is undocumented code. So this is in experimental state, but will
+ be continued in future. 
