@@ -176,12 +176,18 @@ spiderScan() {
 
   scan
 
-  curl -s 'http://localhost:8080/xml/spider/view/results/?scanId='${currentScanId} > ${prjdir}/zap/results/spiderScan_${currentScanId}.xml
+  curl -s "http://localhost:8080/OTHER/core/other/htmlreport/" > ${prjdir}/zap/results/zap-report.html
 
   echo ""
-  echo "The scan results one can find here: ${prjdir}/zap/results/spiderScan_${currentScanId}.xml"
+  echo "Sider scan finished"
   echo ""
-  echo "Spider scan finished"
+  echo "The scan results of previous and this action, one can directly find here:"
+  echo "http://localhost:8080/OTHER/core/other/htmlreport/"
+  echo ""
+  echo "Alternatively one is able to inspect under:"
+  echo "${prjdir}/zap/results/zap-report.html"
+  echo "(Be aware, the result will be overwritten by the next action, like spider/active scanning!)"
+  echo ""
   echo "#########################################"
   echo ""
 }
@@ -213,12 +219,18 @@ ajaxSpiderScan() {
 
   scan
 
-  curl -s 'http://localhost:8080/xml/ajaxSpider/view/results/?start='${resultStart}'&count='${resultCount} > ${prjdir}/zap/results/ajaxSpiderScan.xml
-  echo ""
-  echo "The scan results (from #'${resultStart}' to #'$((${resultStart}+${resultCount}))') one can find here:"
-  echo "${prjdir}/zap/results/ajaxSpiderScan.xml"
+  curl -s "http://localhost:8080/OTHER/core/other/htmlreport/" > ${prjdir}/zap/results/zap-report.html
+
   echo ""
   echo "Ajax spider scan finished"
+  echo ""
+  echo "The scan results of previous and this action, one can directly find here:"
+  echo "http://localhost:8080/OTHER/core/other/htmlreport/"
+  echo ""
+  echo "Alternatively one is able to inspect under:"
+  echo "${prjdir}/zap/results/zap-report.html"
+  echo "(Be aware, the result will be overwritten by the next action, like spider/active scanning!)"
+  echo ""
   echo "#########################################"
   echo ""
 }
@@ -294,13 +306,20 @@ activeScan() {
 
   scan
 
-  curl -s 'http://localhost:8080/xml/ascan/view/alertsIds/?scanId='${currentScanId} > ${prjdir}/zap/results/activeScan_${currentScanId}.xml
-  echo ""
-  echo "The scan results one can find here:"
-  echo "${prjdir}/zap/results/activeScan_${currentScanId}.xml"
+  curl -s "http://localhost:8080/OTHER/core/other/htmlreport/" > ${prjdir}/zap/results/zap-report.html
+
   echo ""
   echo "Active scan finished"
+  echo ""
+  echo "The scan results of previous and this action, one can directly find here:"
+  echo "http://localhost:8080/OTHER/core/other/htmlreport/"
+  echo ""
+  echo "Alternatively one is able to inspect under:"
+  echo "${prjdir}/zap/results/zap-report.html"
+  echo "(Be aware, the result will be overwritten by the next action, like spider/active scanning!)"
+  echo ""
   echo "#########################################"
+  echo ""
 }
 
 #####################################

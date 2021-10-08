@@ -83,7 +83,7 @@ This is done by
 
     before running Cypress (in the same terminal window)!\
     But this is build in for automatic execution, any time you start a Cypress test run.
-- All other convinient stuff is done by sh scripts.
+- All other convinient stuff is done by sh (bourne) scripts.
 
 ## Preparations
 
@@ -136,7 +136,7 @@ Install the needed dependancies, because they are not committed to git.
 
     Now ZAP knows something about the structure of the Juice Shop and use this for
     attacks (active scans).\
-    Watch out where you can find the file with the scan result (terminal).
+    Watch out where you can find the scan results (terminal).
 
 # Next steps
 
@@ -154,6 +154,7 @@ Install the needed dependancies, because they are not committed to git.
 
  Juice Shop: `http://localhost:3000`
  Cypress, vizual mode (if it runs in this mode): `http://localhost:6901/`
+ Scan results: `http://localhost:8080/OTHER/core/other/htmlreport/`
 
 # Updates
 
@@ -188,4 +189,4 @@ Install the needed dependancies, because they are not committed to git.
  Read about this topic to make yourself familiar with it: ["ZAP"](https://www.zaproxy.org/).\
  You use this on your own risk!!!
  It may happen, there is undocumented code. So this is in experimental state, but will
- be continued in future. 
+ be continued in future.
