@@ -1,7 +1,7 @@
 {
     "name": "zapress",
-    "version": "1.6.0",
-    "description": "added configuration of zap scans via script, formated in README.md new",
+    "version": "1.6.2",
+    "description": "documented how to inspect the scan results, set timezone in zap container to 'Berlin'",
     "main": "index.js",
     "scripts": {
         "start": "cypress open",
