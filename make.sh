@@ -26,6 +26,7 @@ usage() {
       -${green}cnvl${reset}: run ${green}C${reset}ypress in ${green}N${reset}ative, ${green}V${reset}isual on ${green}L${reset}ocal shop
       -${green}z${reset}: run ${green}Z${reset}ap | -<scan type> <shop>
       -${green}zahl${reset}: run ${green}Z${reset}ap ${green}A${reset}ctive-scan, ${green}H${reset}eadless on ${green}L${reset}ocal shop
+
 EOF
   exit 1
 }

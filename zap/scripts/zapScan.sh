@@ -30,6 +30,7 @@ usage() {
       -${green}eaas${reset}: ${green}E${reset}nable ${green}A${reset}ll ${green}A${reset}ctive ${green}S${reset}canner
       -${green}daas${reset}: ${green}D${reset}isable ${green}A${reset}ll ${green}A${reset}ctive ${green}S${reset}canner
       -${green}as${reset}: ${green}A${reset}ctive ${green}S${reset}can | <shop>
+
 EOF
   exit 1
 }
