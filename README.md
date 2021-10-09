@@ -30,13 +30,13 @@
  Here the recommended version is v12.15.0 . All other can fail because of not matching
  the needs of the system.\
  NOTE: After version change one has to perform an "npm i" to install the dependancies!\
- HowTo: `https://ichi.pro/de/verwenden-sie-nvm-um-node-js-und-npm-versionen-zu-verwalten-48175851724703`
+ HowTo: `https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/`
 
 # In principle
 
 ## WARNING: Don't let run ZAP Active Scans against apps you do not have permission for!!!
-###   Because these scans may harm the application/website and can be considered as an
-###   attack. Recommendation: Read up on the subject ["ZAP"](https://www.zaproxy.org/).
+###   Because these scans may harm the application/website and can be considered as an\
+attack. Recommendation: Read up on the subject ["ZAP"](https://www.zaproxy.org/).
 
  This project provides the Juice Shop and the ZAP proxy, each dockerized and runable as
  one environment. The as well dockarized Cypress application can be launched if needed.
@@ -158,6 +158,8 @@ Install the needed dependancies, because they are not committed to git.
 
 # Updates
 
+## Cypress
+
  If you want to update Cypress, be sure to change the version to the same valid value
  in the following files:
  1. ./package.json
@@ -168,6 +170,15 @@ Install the needed dependancies, because they are not committed to git.
  ```bash
  $ npm i
  ```
+
+## Juice Shop + ZAP
+
+This will perform the job for you:
+
+```bash
+$ ./make.sh -uenv
+```
+Don't forget to delete old docker images, from time to time!
 
 # Help from you!
 

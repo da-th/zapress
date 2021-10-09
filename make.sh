@@ -15,9 +15,9 @@ usage() {
       -${green}shownode${reset}: ${green}SHOW${reset} of nvm used version of ${green}NODE${reset}
       -${green}confnode${reset}: ${green}CONF${reset}igure of nvm used version of ${green}NODE${reset} and update dependancies
       -${green}obmitnode${reset}: ${green}OBMIT${reset} of nvm used version of ${green}NODE${reset} back to the default one
-      -${green}renv${reset}: ${green}R${reset}un ${green}ENV${reset}ironment (juice shop + zap (both dockerized))
+      -${green}uenv${reset}: ${green}U${reset}pdate ${green}ENV${reset}ironment (juice shop + zap (both dockerized))
+      -${green}renv${reset}: ${green}R${reset}un ${green}ENV${reset}ironment (docker)
       -${green}senv${reset}: ${green}S${reset}hutdown ${green}ENV${reset}ironment (docker)
-      -${green}lenv${reset}: ${green}L${reset}eave ${green}ENV${reset}ironment (docker swarm)
       -${green}cd${reset}: run ${green}C${reset}ypress in ${green}D${reset}ocker container | <test type> <test scenario> <shop>
       -${green}cn${reset}: run ${green}C${reset}ypress ${green}N${reset}ative | <test type> <test scenario> <shop>
       -${green}cdhl${reset}: run ${green}C${reset}ypress in ${green}D${reset}ocker container, ${green}H${reset}eadless (chrome) on ${green}L${reset}ocal shop
@@ -51,6 +51,13 @@ omit_node() {
   echo "switch node version to default..."
   . ~/.nvm/nvm.sh
   nvm use default
+}
+
+update() {
+  echo "update test environment (juice shop + zap) in docker..."
+  docker pull bkimminich/juice-shop
+  echo ""
+  docker pull owasp/zap2docker-stable
 }
 
 run() {
@@ -118,6 +125,7 @@ while [ $# > 0  ]; do
     -shownode) shift && show_node;;
     -confnode) shift && configure_node;;
     -omitnode) shift && omit_node;;
+    -uenv) shift && update;;
     -renv) shift && run;;
     -senv) shift && shutdown;;
     -cd) shift && cypress_docker "$@";;
