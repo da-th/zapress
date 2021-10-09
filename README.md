@@ -189,6 +189,7 @@ Don't forget to delete old docker images, from time to time!
 
  Sure, this readme may include not everything you expected. Let me know and I try to
  add topics to clearify questions.
+ I am available via email: github_da-th@web.de
 
 # Inspiration
 
