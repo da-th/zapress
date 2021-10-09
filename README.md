@@ -30,22 +30,23 @@
  Here the recommended version is v12.15.0 . All other can fail because of not matching
  the needs of the system.\
  NOTE: After version change one has to perform an "npm i" to install the dependancies!\
- HowTo: `https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/`
+ HowTo: `https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/
+ `
 
 # In principle
 
 ## WARNING: Don't let run ZAP Active Scans against apps you do not have permission for!!!
-###   Because these scans may harm the application/website and can be considered as an\
-attack. Recommendation: Read up on the subject ["ZAP"](https://www.zaproxy.org/).
+###   Because these scans may harm the application/website and can be considered as an
+###   attack. Recommendation: Read up on the subject ["ZAP"](https://www.zaproxy.org/).
 
  This project provides the Juice Shop and the ZAP proxy, each dockerized and runable as
  one environment. The as well dockarized Cypress application can be launched if needed.
  ZAP scans and Cypress tests can be run against the local Juice Shop or against one in
- the internet (especially installed for test purposes).\
+ the internet (remote; especially installed for test purposes).\
  Cypress can be used in terminal or in graphical mode, as well.
 
  Sample options are realized in the script "make.sh". This script is the entrypoint into
- the world of Zapress and uses other scripts which have different tasks for the different
+ the world of Zapress and calls other scripts which have different tasks for the different
  apps in this project.
 
  In project directory only type
@@ -54,7 +55,11 @@ attack. Recommendation: Read up on the subject ["ZAP"](https://www.zaproxy.org/)
  $ ./make.sh
  ```
 
- to get an explanation about the possible options.
+ to get an explanation about the possible options.\
+
+ The options "-cd", "-cn" and "-z" are options where have to be added options of the
+ downstream script(s). So it may be comes up a second "usage" for this script or
+ questions to the missing needed options, if not given correct.
 
 # How it works under the hood
 
