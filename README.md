@@ -150,7 +150,7 @@ Install the needed dependancies, because they are not committed to git.
   - add or change options which matches your needs
   - add new tests in Cypress
   - run spider scans in ZAP
-  - add config files for run zap scans which matches your needs
+  - add config files for run zap scans which matches your needs (see [api ui](http://localhost:8080/UI))
   - accept challanges in the Juice Shop
   - read the book to the Juice Shop and learn something about security
   - ...
@@ -159,7 +159,8 @@ Install the needed dependancies, because they are not committed to git.
 
  Juice Shop: `http://localhost:3000`
  Cypress, vizual mode (if it runs in this mode): `http://localhost:6901/`
- Scan results: `http://localhost:8080/OTHER/core/other/htmlreport/`
+ ZAP scan api `http://localhost:8080/UI`
+ ZAP scan results: `http://localhost:8080/OTHER/core/other/htmlreport/`
 
 # Updates
 
