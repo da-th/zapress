@@ -1,13 +1,14 @@
 {
     "name": "zapress",
-    "version": "1.6.2",
-    "description": "documented how to inspect the scan results, set timezone in zap container to 'Berlin'",
+    "version": "1.6.3",
+    "description": "went forward with the documentation",
     "main": "index.js",
     "scripts": {
         "start": "cypress open",
         "test": "cypress run"
     },
     "author": "Daniel Thuermann",
+    "email": "github_da-th@web.de",
     "license": "MIT",
     "repository": "https://github.com/da-th/zapress",
     "devDependencies": {

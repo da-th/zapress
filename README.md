@@ -57,7 +57,7 @@
 
  to get an explanation about the possible options.\
 
- The options "-cd", "-cn" and "-z" are options where have to be added options of the
+ The options `-cd `, `-cn ` and `-z ` are options where have to be added options of the
  downstream script(s). So it may be comes up a second "usage" for this script or
  questions to the missing needed options, if not given correct.
 
