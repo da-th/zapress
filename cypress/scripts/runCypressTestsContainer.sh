@@ -24,8 +24,6 @@ runInContainer() {
     -v "$PRJDIR/cypress.json:/e2e/cypress.json" \
     -v "$PRJDIR/cypress/scripts:/e2e/scripts" \
     --shm-size 2g \
-    -p 5901:5901 \
-    -p 6901:6901 \
     -e VNC_ENABLED=$VNC_ENABLED \
     --network="host" \
     cypress \
