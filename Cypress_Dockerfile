@@ -1,4 +1,4 @@
-FROM cypress/included:8.5.0 AS cypressvnc
+FROM cypress/included:8.6.0 AS cypressvnc
 
 # Installs a VNC server as fully host-independent solution
 ENV DEBIAN_FRONTEND=noninteractive
@@ -35,4 +35,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 FROM cypressvnc AS cye2emod
 COPY package.json /e2e/
 WORKDIR /e2e
-RUN npm install
+RUN npm install && npm audit fix
