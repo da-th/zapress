@@ -75,7 +75,7 @@ scan() {
       curl -s 'http://localhost:8080/JSON/'${scanType}'/action/stopAllScans' > /dev/null
       curl -s 'http://localhost:8080/JSON/ajaxSpider/action/stop' > /dev/null
 
-      exit 1
+      exit 0
     fi
 
     if [ ${scanType} = "ajaxSpider" ] ;then
