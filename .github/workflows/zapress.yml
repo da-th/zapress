@@ -1,0 +1,87 @@
+name: Chrome headless
+on: [push]
+jobs:
+  cypress-run:
+    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    runs-on: ubuntu-20.04
+
+    services:
+      zap:
+        build:
+          context: ./zap
+          dockerfile: Zap_Dockerfile
+        container_name: zap
+        user: zap
+        ports:
+          - "8080:8080"
+        volumes:
+          - ./zap/configs:/zap/configs
+
+    steps:
+      - name: configure OWASP ZAP to exclude hosts of no interest
+        run: curl "http://localhost:8080/JSON/core/action/excludeFromProxy/?regex=%5E.*%28google%7Cgstatic%7Cherokucdn%7Cgetmdl%7Ccloudflare%7Ccypress%29.*"
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        uses: cypress-io/github-action@v2
+        with:
+          runTests: false
+      - name: Run Cypress proxied by ZAP
+        uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          install: false
+          headless: true
+        env:
+          HTTP_PROXY: http://localhost:8080
+          HTTPS_PROXY: http://localhost:8080
+      - name: wait for OWASP ZAP active scan to finish
+        if: always()
+        run: |
+          curl -s 'http://localhost:8080/JSON/ascan/action/stopAllScans' > /dev/null
+          scanInfo="$(curl -s 'http://localhost:8080/JSON/ascan/action/scan/?url=https%3A%2F%2Fjuice-shop.herokuapp.com%2F&recurse=true&inScopeOnly=false&scanPolicyName=&method=&postData=&contextId=')"
+          currentScanId=$(echo ${scanInfo} | cut -c10-$((${#scanInfo}-2)))
+          echo ""
+          echo "#########################################"
+          echo "Started active scan (ID: ${currentScanId})... "
+          echo ""
+          attempt_counter=0
+          max_attempts=350
+          statusResult=""
+          while
+            if [ ${attempt_counter} -eq ${max_attempts} ] ;then
+              echo ""
+              echo "Max attempts reached, exiting"
+              echo "#########################################"
+              echo ""
+              curl -s 'http://localhost:8080/JSON/ascan/action/stopAllScans' > /dev/null
+              exit 0
+            fi
+            statusResult="$(curl -s 'http://localhost:8080/JSON/ascan/view/status/?scanId='${currentScanId})"
+            echo "Current scan status ($((${attempt_counter}+1))): $(echo ${statusResult} | cut -c12-$((${#statusResult}-2)))%"
+            attempt_counter=$(($attempt_counter+1))
+            sleep 5
+            [ "$statusResult" != "{\"status\":\"100\"}" ]
+          do true; done
+          echo ""
+          echo "Active scan finished"
+          echo ""
+          echo "#########################################"
+          echo ""
+      - name: download OWASP ZAP report
+        if: always()
+        run: curl "http://localhost:8080/OTHER/core/other/htmlreport/" > zap/results/zap-report.html
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: ZAP-report
+          path: zap/results/zap-report.html
