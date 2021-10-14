@@ -159,7 +159,7 @@ Install the needed dependancies, because they are not committed to git.
 
  Juice Shop: `http://localhost:3000`
  Cypress, vizual mode (if it runs in this mode): `http://localhost:6901/`
- ZAP scan api `http://localhost:8080/UI`
+ ZAP scan api ui: `http://localhost:8080/UI`
  ZAP scan results: `http://localhost:8080/OTHER/core/other/htmlreport/`
 
 # Updates
