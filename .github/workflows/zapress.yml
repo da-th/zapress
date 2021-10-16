@@ -1,9 +1,19 @@
 name: Chrome headless
-on: [push]
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 jobs:
   cypress-run:
     if: "!contains(github.event.commits[0].message, '[skip ci]')"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     services:
       zap:
@@ -18,14 +28,14 @@ jobs:
           - ./zap/configs:/zap/configs
 
     steps:
-      - name: configure OWASP ZAP to exclude hosts of no interest
+      - name: configure OWASP ZAP to use only hosts interest
         run: curl "http://localhost:8080/JSON/core/action/excludeFromProxy/?regex=%5E.*%28google%7Cgstatic%7Cherokucdn%7Cgetmdl%7Ccloudflare%7Ccypress%29.*"
       - uses: actions/checkout@v1
       - name: Install dependencies
         uses: cypress-io/github-action@v2
         with:
           runTests: false
-      - name: Run Cypress proxied by ZAP
+      - name: Run Cypress via ZAP proxy
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
