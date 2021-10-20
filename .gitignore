@@ -4,4 +4,3 @@ cypress/screenshots
 zap/results/*
 node_modules
 0
-.github/
