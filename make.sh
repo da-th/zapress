@@ -31,7 +31,22 @@ EOF
   exit 1
 }
 
-show_node() {
+# check running juice container
+checkJuice() {
+  status="$(curl -I -s 'http://localhost:3000')"
+  if [ "$status" = "" ] ;then
+    echo ""
+    echo "#########################################"
+    echo "OWASP Juice Shop is not available!"
+    echo "Is the Juice Shop container running?"
+    echo "#########################################"
+    echo ""
+    usage
+    exit
+  fi
+}
+
+showNode() {
   . ~/.nvm/nvm.sh
   echo "#############################################################"
   echo "Node info:"
@@ -39,15 +54,15 @@ show_node() {
   echo "#############################################################"
 }
 
-configure_node() {
+configureNode() {
   echo "switch node version for matching project needs..."
   . ~/.nvm/nvm.sh
-  # use declarated node version (taken from .nvmrc)
+  # use declarated node version (taken from ./.nvmrc)
   nvm use
   npm i
 }
 
-omit_node() {
+omitNode() {
   echo "switch node version to default..."
   . ~/.nvm/nvm.sh
   nvm use default
@@ -70,37 +85,37 @@ shutdown() {
   docker-compose -f zap_juice.yml down
 }
 
-cypress_docker() {
+cypressDocker() {
   echo "start Cypress in Docker container..."
   sh ./zap/scripts/zapScan.sh -eps
   sh ./cypress/scripts/runCypressTestsContainer.sh "$@"
 }
 
-cypress_native() {
+cypressNative() {
   echo "start Cypress in Docker container..."
   sh ./zap/scripts/zapScan.sh -eps
   sh ./cypress/scripts/runCypressTests.sh "$@"
 }
 
-cypress_docker_headless_local() {
+cypressDockerHeadlessLocal() {
   echo "start Cypress in Docker container headless on local juice shop..."
-  cypress_docker test_chrome all local
+  cypressDocker test_chrome all local
 }
 
-cypress_native_headless_local() {
+cypressNativeHeadlessLocal() {
   echo "start Cypress as native headless on local juice shop..."
-  cypress_native test_chrome all local
+  cypressNative test_chrome all local
 }
 
-cypress_docker_visual_local() {
+cypressDockerVisualLocal() {
   echo "start Cypress in Docker container in visual mode on local juice shop..."
   echo "Open 'http://localhost:6901/'in your browser!"
-  cypress_docker start all local
+  cypressDocker start all local
 }
 
-cypress_native_visual_local() {
+cypressNativeVisualLocal() {
   echo "start Cypress as native in visual mode on local juice shop..."
-  cypress_native start all local
+  cypressNative start all local
 }
 
 zap() {
@@ -108,7 +123,7 @@ zap() {
   sh ./zap/scripts/zapScan.sh "$@"
 }
 
-zap_active_headless_local() {
+zapActiveHeadlessLocal() {
   echo "start ZAP active scan headless on local juice shop..."
   zap -as local
 }
@@ -122,20 +137,20 @@ cd $dir
 while [ $# > 0  ]; do
   opt="$1"
   case "$opt" in
-    -shownode) shift && show_node;;
-    -confnode) shift && configure_node;;
-    -omitnode) shift && omit_node;;
+    -shownode) shift && showNode;;
+    -confnode) shift && configureNode;;
+    -omitnode) shift && omitNode;;
     -uenv) shift && update;;
     -renv) shift && run;;
     -senv) shift && shutdown;;
-    -cd) shift && cypress_docker "$@";;
-    -cn) shift && cypress_native "$@";;
-    -cdhl) shift && cypress_docker_headless_local;;
-    -cdvl) shift && cypress_docker_visual_local;;
-    -cnhl) shift && cypress_native_headless_local;;
-    -cnvl) shift && cypress_native_visual_local;;
+    -cd) shift && cypressDocker "$@";;
+    -cn) shift && cypressNative "$@";;
+    -cdhl) shift && checkJuice && cypressDockerHeadlessLocal;;
+    -cdvl) shift && checkJuice && cypressDockerVisualLocal;;
+    -cnhl) shift && checkJuice && cypressNativeHeadlessLocal;;
+    -cnvl) shift && checkJuice && cypressNativeVisualLocal;;
     -z) shift && zap "$@";;
-    -zahl) shift && zap_active_headless_local;;
+    -zahl) shift && zapActiveHeadlessLocal;;
     -h|*) usage ;;
   esac
 done
