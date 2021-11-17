@@ -58,7 +58,26 @@ else
   fi
 fi
 
-# reusable scan part for different taypes of scanning
+#####################################
+# reusable code
+#####################################
+
+# check running zap container
+checkZap() {
+  status="$(curl -I -s 'http://localhost:8080')"
+  if [ "$status" = "" ] ;then
+    echo ""
+    echo "#########################################"
+    echo "ZAP is not available!"
+    echo "Is the environment/ZAP container running?"
+    echo "#########################################"
+    echo ""
+    usage
+    exit
+  fi
+}
+
+# scan part for different types of scanning
 scan() {
   attempt_counter=0
   statusResult=""
@@ -330,16 +349,16 @@ activeScan() {
 while [ $# > 0  ]; do
   opt="$1"
   case "$opt" in
-    -seps) shift && showEnabledPassiveScanner;;
-    -eps) shift && disableAllPassiveScanner && enablePassiveScanner;;
-    -eaps) shift && enableAllPassiveScanner;;
-    -daps) shift && disableAllPassiveScanner;;
-    -sp) shift && spiderScan;;
-    -asp) shift && ajaxSpiderScan "$@";;
-    -eas) shift && disableAllActiveScanner && enableActiveScanner;;
-    -eaas) shift && enableAllActiveScanner;;
-    -daas) shift && disableAllActiveScanner;;
-    -as) shift && activeScan;;
+    -seps) shift && checkZap && showEnabledPassiveScanner;;
+    -eps) shift && checkZap && disableAllPassiveScanner && enablePassiveScanner;;
+    -eaps) shift && checkZap && enableAllPassiveScanner;;
+    -daps) shift && checkZap && disableAllPassiveScanner;;
+    -sp) shift && checkZap && spiderScan;;
+    -asp) shift && checkZap && ajaxSpiderScan "$@";;
+    -eas) shift && checkZap && disableAllActiveScanner && enableActiveScanner;;
+    -eaas) shift && checkZap && enableAllActiveScanner;;
+    -daas) shift && checkZap && disableAllActiveScanner;;
+    -as) shift && checkZap && activeScan;;
     -h|*) usage ;;
   esac
 done
