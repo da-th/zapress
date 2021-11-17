@@ -121,7 +121,10 @@ Install the needed dependancies, because they are not committed to git.
     ```
 
     This option sets up the route through the ZAP proxy and starts all available tests in
-    a dockerized Cypress, headless (Chrome) against the Juice Shop (see step 1.).
+    a dockerized Cypress, headless (Chrome) against the Juice Shop (see step 1.).\
+    Unfortunately at execution anytime there is a message about "caniuse-lite is outdated".\
+    But this is done automatically in dockerized Cypress when updated. So, no action\
+    needed for the container.
 
  3. Enable only some active scan types
 
@@ -171,10 +174,11 @@ Install the needed dependancies, because they are not committed to git.
  1. ./package.json
  2. ./Cypress_Dockerfile
 
- Don't forget to update the dependencies by
+ Don't forget to update the native dependencies by
 
  ```bash
  $ npm i
+ $ npx browserslist@latest --update-db
  ```
 
 ## Juice Shop + ZAP
