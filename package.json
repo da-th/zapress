@@ -1,6 +1,6 @@
 {
     "name": "zapress",
-    "version": "1.8.0",
+    "version": "1.9.0",
     "description": "updated cypress",
     "main": "index.js",
     "scripts": {
@@ -12,7 +12,7 @@
     "license": "MIT",
     "repository": "https://github.com/da-th/zapress",
     "devDependencies": {
-        "cypress": "8.7.0",
+        "cypress": "9.0.0",
         "node": "14.17.6"
     }
 }
