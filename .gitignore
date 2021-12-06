@@ -1,6 +1,7 @@
 package-lock.json
 cypress/videos
 cypress/screenshots
+cypress/snapshots
 zap/results/*
 node_modules
 0
