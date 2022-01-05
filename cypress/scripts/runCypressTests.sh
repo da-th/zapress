@@ -101,7 +101,11 @@ esac
 # checks the given ($2) scenario for test execution
 if [ "$2" = "all" ] ;then
   scenario="$2"
-  scenarioBuild=$scenarioParam\"${testDirectory}*.spec.js\" # with selection "all" only files with  ending ".spec.js" are used for cypress execution
+  if [ "$headless" = '' ] ;then
+    scenarioBuild=''
+  else
+    scenarioBuild=$scenarioParam\"${testDirectory}*.spec.js\" # with selection "all" only files with  ending ".spec.js" are used for cypress execution
+  fi
 else
   if ! echo "$2" | grep -Eq "\.spec\.js$"; then # "spec\.js" is a criteria to ensure the string seems to be correctly (file have to end with ".spec.js")
     scenario=""
@@ -109,7 +113,11 @@ else
       printf "The scenario is not given (correctly)! Which SCENARIO should run: "
       read -r scenario
       if [ "$scenario" = "all" ] ;then
-        scenarioBuild=$scenarioParam\"${testDirectory}*.spec.js\" # with selection "all" only files with  ending ".spec.js" are used for cypress execution
+        if [ "$headless" = '' ] ;then
+          scenarioBuild=''
+        else
+          scenarioBuild=$scenarioParam\"${testDirectory}*.spec.js\" # with selection "all" only files with  ending ".spec.js" are used for cypress execution
+        fi
       else
         scenarioBuild=$scenarioParam"${testDirectory}${scenario}"
       fi
