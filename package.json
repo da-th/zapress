@@ -1,7 +1,7 @@
 {
     "name": "zapress",
-    "version": "1.12.1",
-    "description": "updated cypress",
+    "version": "1.12.2",
+    "description": "fixed not recommended use of glob pattern",
     "main": "index.js",
     "scripts": {
         "start": "cypress open",
