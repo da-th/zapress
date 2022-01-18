@@ -180,7 +180,7 @@ disableAllPassiveScanner() {
 spiderScan() {
   scanType="spider"
   sleep=2
-  max_attempts=5
+  max_attempts=15
 
   # stop maybe still running privious scan, so there is no mess up
   curl -s 'http://localhost:8080/JSON/spider/action/stopAllScans' > /dev/null
@@ -217,7 +217,7 @@ ajaxSpiderScan() {
   scanType="ajaxSpider"
   contextName=""
   sleep=5
-  max_attempts=200
+  max_attempts=300
 
   if [ $# = 3 ] ;then
     resultStart=$2
