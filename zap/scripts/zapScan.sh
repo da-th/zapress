@@ -199,7 +199,7 @@ spiderScan() {
   curl -s "http://localhost:8080/OTHER/core/other/htmlreport/" > ${prjdir}/zap/results/zap-report.html
 
   echo ""
-  echo "Sider scan finished"
+  echo "Spider scan finished"
   echo ""
   echo "The scan results of previous and this action, one can directly find here:"
   echo "http://localhost:8080/OTHER/core/other/htmlreport/"
