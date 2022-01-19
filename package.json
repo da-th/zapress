@@ -1,7 +1,7 @@
 {
     "name": "zapress",
-    "version": "1.13.0",
-    "description": "updated cypress version",
+    "version": "1.14.0",
+    "description": "updated cypress version, changed time out (higher) settings for zap scans",
     "main": "index.js",
     "scripts": {
         "start": "cypress open",
@@ -12,7 +12,7 @@
     "license": "MIT",
     "repository": "https://github.com/da-th/zapress",
     "devDependencies": {
-        "cypress": "9.2.1",
+        "cypress": "9.3.1",
         "node": "14.17.6"
     },
     "dependencies": {}

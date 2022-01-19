@@ -1,4 +1,4 @@
-FROM cypress/included:9.2.1 AS cypressvnc
+FROM cypress/included:9.3.1 AS cypressvnc
 
 # Installs a VNC server as fully host-independent solution
 ENV DEBIAN_FRONTEND=noninteractive
