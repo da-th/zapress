@@ -121,7 +121,7 @@ Install the needed dependancies, because they are not committed to git.
     ```
 
     This option sets up the route through the ZAP proxy and starts all available tests
-    (test file name corresponds to the following pattern: "*.spec.js") in a dockerized 
+    (test file name corresponds to the following pattern: "*.spec.js") in a dockerized
     Cypress, headless (Chrome) against the Juice Shop (see step 1.).\
     Unfortunately at execution anytime there is a message about "caniuse-lite is outdated".\
     But this is done automatically in dockerized Cypress when updated. So, no action\
@@ -165,6 +165,12 @@ Install the needed dependancies, because they are not committed to git.
  Cypress, vizual mode (if it runs in this mode): `http://localhost:6901/`
  ZAP scan api ui: `http://localhost:8080/UI`
  ZAP scan results: `http://localhost:8080/OTHER/core/other/htmlreport/`
+
+# Info about API testing with Cypress and Juice Shop API
+
+API plugin: `https://github.com/bahmutov/cy-api/blob/master/README.md`
+API testing with Cypress: `https://filiphric.com/cypress-basics-api-testing`
+API of Juice Shop: `https://documenter.getpostman.com/view/11581686/SztEZSZ4#auth-info-cdee5c4d-c8c3-4dbe-af6d-a357dd3f5178`
 
 # Updates
 
