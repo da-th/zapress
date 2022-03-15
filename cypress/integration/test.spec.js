@@ -4,7 +4,7 @@ describe("OWASP juice shop", () => {
         cy.clearLocalStorage();
     });
 
-    it("should visit about us", () => {
+    it("should visit some subpages", () => {
         cy.visit("/#/about");
         cy.visit("/#/photo-wall");
         cy.request("/ftp/legal.md");
