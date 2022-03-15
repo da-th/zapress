@@ -1,6 +1,7 @@
 package-lock.json
 cypress/integration/*
 !cypress/integration/test.spec.js
+!cypress/integration/test.api.spec.js
 cypress/videos
 cypress/screenshots
 cypress/snapshots
