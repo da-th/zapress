@@ -12,7 +12,7 @@
     "license": "MIT",
     "repository": "https://github.com/da-th/zapress",
     "devDependencies": {
-        "cypress": "9.5.1",
+        "cypress": "9.5.2",
         "@bahmutov/cy-api": "^2.1.2",
         "node": "14.17.6"
     }
