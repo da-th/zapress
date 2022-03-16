@@ -1,4 +1,4 @@
-FROM cypress/included:9.5.1 AS cypressvnc
+FROM cypress/included:9.5.2 AS cypressvnc
 
 # Installs a VNC server as fully host-independent solution
 ENV DEBIAN_FRONTEND=noninteractive
@@ -10,7 +10,7 @@ RUN apt update && apt install -y --no-install-recommends \
     xfwm4 xfce4 dbus-x11 xterm
 
 # Install noVNC (VNC web client)
-RUN apt install -y novnc websockify python-numpy && ln -s /usr/share/novnc/vnc.html /usr/share/novnc/index.html
+RUN apt update && apt install -y novnc websockify python3-numpy && ln -s /usr/share/novnc/vnc.html /usr/share/novnc/index.html
 
 # Add script to start the xfce window manager (called by VNC server on initialization)
 RUN printf '#!/bin/sh\nunset SESSION_MANAGER\nunset DBUS_SESSION_BUS_ADDRESS\nexec startxfce4' > /usr/local/bin/start-window-manager && \
