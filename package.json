@@ -1,7 +1,7 @@
 {
     "name": "zapress",
     "version": "1.18.0",
-    "description": "added api testing plugin and first api test, may also usefull for fast login",
+    "description": "updated cypress, added api testing plugin and first api tests, make over of old tests",
     "main": "index.js",
     "scripts": {
         "start": "cypress open",
