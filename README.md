@@ -1,6 +1,6 @@
-# Learn how to make your apps more secure with Cypress & OWASP ZAP
+# Learn how to find vulnerabilities in software security of your apps with Cypress & OWASP ZAP
 
- This set of apps build an environment to learn how to test for threads in an web app.
+ This set of apps build an environment to learn how to test for threads in a web app.
 
  1. [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) is an example shop
  with intentional build in insecureties. The challange is to find them.\
@@ -10,7 +10,8 @@
  - Online: `https://pwning.owasp-juice.shop/`\
  - PDF/MOBI/EPUB: `https://leanpub.com/juice-shop`.
  2. [Cypress](https://www.cypress.io) is the new "Selenium", so an UI/E2E testing
- framework. It's awsome <find article link to post here>
+ framework. I can recommend this [blog from Filip Hric](https://filiphric.com/blog)\
+ to digg a little deeper!
  3. [OWASP ZAP](https://www.zaproxy.org/) is a security scanner for web apps. It can
  find potential vulnerabilities by analyse traffic using a proxy, passive and active
  scan and more.
@@ -27,7 +28,7 @@
  4. (Optional but highly recommended) [NVM](https://github.com/nvm-sh/nvm) make id
  possible to switch between versions of npm per project. So one can run the application
  in the matching npm version.\
- Here the recommended version is v12.15.0 . All other can fail because of not matching
+ Here the recommended version is v14.17.6 . All other can fail because of not matching
  the needs of the system.\
  NOTE: After version change one has to perform an "npm i" to install the dependancies!\
  HowTo: `https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/
@@ -219,3 +220,5 @@ Don't forget to delete old docker images, from time to time!
  You use this on your own risk!!!
  It may happen, there is undocumented code. So this is in experimental state, but will
  be continued in future.
+ No responsibility is taken for links published here. They were provided only with the\
+ best intentions!

@@ -1,7 +1,7 @@
 {
     "name": "zapress",
-    "version": "1.18.0",
-    "description": "updated cypress, added api testing plugin and first api tests, make over of old tests",
+    "version": "1.18.1",
+    "description": "updated README.md",
     "main": "index.js",
     "scripts": {
         "start": "cypress open",
