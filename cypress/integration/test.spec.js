@@ -2,22 +2,17 @@
 except the first test is responsible for setting the cookies correctly for the
 following ones. */
 
-describe("OWASP juice shop", () => {
-  before(() => {
-    cy.clearCookies();
-    cy.clearLocalStorage();
-  });
-  beforeEach(() => {
-    Cypress.Cookies.preserveOnce('cookieconsent_status',
-      'welcomebanner_status');
-      cy.visit("/");
-  });
+before(() => {
+  cy.clearCookies();
+  cy.clearLocalStorage();
+});
 
-  it("should close the welcome banner and cookie notice", () => {
-    cy.get("button[aria-label='Close Welcome Banner']")
-      .click();
-    cy.get("a[aria-label='dismiss cookie message']")
-      .click();
+describe("OWASP juice shop - logged out", () => {
+
+  beforeEach(() => {
+    cy.setCookie('cookieconsent_status', 'dismiss');
+    cy.setCookie('welcomebanner_status', 'dismiss');
+    cy.visit('/');
   });
 
   it("should type in credentials, press the login button and be logged in",
@@ -37,7 +32,17 @@ describe("OWASP juice shop", () => {
       cy.get("#loginButton").click();
     });
 
-    cy.get("button[aria-label='Show the shopping cart']").should("exist");
+    cy.loggedIn();
+
+    cy.getCookie('continueCode');
+  });
+});
+
+describe("OWASP juice shop - logged in", () => {
+  beforeEach(() => {
+    cy.login('mc.safesearch@juice-sh.op', 'Mr. N00dles');
+    cy.visit('/');
+    cy.loggedIn();
   });
 
   it("should visit some subpages", () => {
@@ -46,21 +51,6 @@ describe("OWASP juice shop", () => {
   });
 
   it("should open profile and add username", () => {
-    cy.get("button#navbarAccount").click();
-    cy.get("button#navbarLoginButton").click();
-
-    cy.url().should("include", "login");
-
-    cy.get("#login-form").within(() => {
-      cy.get("#email").type("mc.safesearch@juice-sh.op");
-      cy.get("#password").type("Mr. N00dles");
-      cy.get("#rememberMe").click();
-
-      cy.get("#loginButton").click();
-    });
-
-    cy.get("button[aria-label='Show the shopping cart']").should("exist");
-
     cy.visit("/profile");
 
     cy.get("#username").clear().type("someUsername");

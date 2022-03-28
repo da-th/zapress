@@ -1,7 +1,7 @@
 {
     "name": "zapress",
-    "version": "1.18.1",
-    "description": "updated README.md",
+    "version": "1.18.2",
+    "description": "updated README.md; added session handling with login",
     "main": "index.js",
     "scripts": {
         "start": "cypress open",
