@@ -19,7 +19,7 @@ describe('OWASP juice shop - API', () => {
           .as('token'),
         cy.log(response.duration)
           .as('duration')
-      });
+     });
   });
 
   it('Get legal text', () => {

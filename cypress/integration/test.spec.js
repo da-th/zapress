@@ -5,17 +5,21 @@ following ones. */
 before(() => {
   cy.clearCookies();
   cy.clearLocalStorage();
+  //cy.credentials();
 });
 
 describe("OWASP juice shop - logged out", () => {
 
+  before(() => {
+    cy.credentials();
+  });
   beforeEach(() => {
     cy.setCookie('cookieconsent_status', 'dismiss');
     cy.setCookie('welcomebanner_status', 'dismiss');
     cy.visit('/');
   });
 
-  it("should type in credentials, press the login button and be logged in",
+  it.only("should type in credentials, press the login button and be logged in",
     () => {
     cy.get("button[aria-label='Show the shopping cart']").should("not.exist");
 
@@ -24,13 +28,15 @@ describe("OWASP juice shop - logged out", () => {
 
     cy.url().should("include", "login");
 
-    cy.get("#login-form").within(() => {
-      cy.get("#email").type("mc.safesearch@juice-sh.op");
-      cy.get("#password").type("Mr. N00dles");
+    //cy.get("#login-form").within(() => {
+      /*cy.get("#email").type("mc.safesearch@juice-sh.op");
+      cy.get("#password").type("Mr. N00dles");*/
+      cy.get("#email").type(this.credentials.Email1);
+      cy.get("#password").type(this.credentials.Password1);
       cy.get("#rememberMe").click();
 
       cy.get("#loginButton").click();
-    });
+    //});
 
     cy.loggedIn();
 

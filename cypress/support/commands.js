@@ -1,3 +1,11 @@
+
+Cypress.Commands.add('credentials', () => {
+  cy.fixture('user.json')
+    .then(({ credentials }) => {
+      this.credentials = credentials
+  })
+});
+
 Cypress.Commands.add('login', (email, password) => {
   // execute cookie setup, login and save session for later use
   cy.session([email, password], () => {
