@@ -43,10 +43,11 @@ describe("OWASP juice shop - logged out", () => {
 });
 
 describe("OWASP juice shop - logged in", () => {
-  beforeEach(() => {
-    cy.login('mc.safesearch@juice-sh.op', 'Mr. N00dles');
-    cy.visit('/');
-    cy.loggedIn();
+  beforeEach(function() {
+    //cy.login('mc.safesearch@juice-sh.op', 'Mr. N00dles'),
+    cy.login(this.cred.email, this.cred.password),
+    cy.visit('/'),
+    cy.loggedIn()
   });
 
   it("should visit some subpages", () => {
@@ -54,7 +55,7 @@ describe("OWASP juice shop - logged in", () => {
     cy.visit("/#/photo-wall");
   });
 
-  it("should open profile and add username", () => {
+  it.only("should open profile and add username", () => {
     cy.visit("/profile");
 
     cy.get("#username").clear().type("someUsername");
