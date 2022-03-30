@@ -1,9 +1,6 @@
 
 Cypress.Commands.add('credentials', () => {
-  cy.fixture('user.json')
-    .then(({ credentials }) => {
-      this.credentials = credentials
-  })
+  cy.fixture('user').as('cred')
 });
 
 Cypress.Commands.add('login', (email, password) => {
