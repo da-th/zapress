@@ -2,25 +2,29 @@
 except the first test is responsible for setting the cookies correctly for the
 following ones. */
 
+let credentials;
+
 before(() => {
   cy.clearCookies();
   cy.clearLocalStorage();
-  cy.credentials();
+
+  // get user data from /fixture/user.json
+  cy.fixture('user').then((data) => {
+        credentials = data;
+    });
 });
 
 describe("OWASP juice shop - logged out", () => {
   before(() => {
-    //cy.credentials();
   });
   beforeEach(() => {
-    //cy.credentials(),
-    cy.setCookie('cookieconsent_status', 'dismiss'),
-    cy.setCookie('welcomebanner_status', 'dismiss')
+    cy.setCookie('cookieconsent_status', 'dismiss');
+    cy.setCookie('welcomebanner_status', 'dismiss');
     cy.visit('/');
   });
 
   it.only("should type in credentials, press the login button and be logged in",
-    function () {
+    () => {
     cy.get("button[aria-label='Show the shopping cart']").should("not.exist");
 
     cy.get("button#navbarAccount").click();
@@ -29,8 +33,8 @@ describe("OWASP juice shop - logged out", () => {
     cy.url().should("include", "login");
 
     cy.get("#login-form").within(() => {
-      cy.get("#email").type(this.cred.email);
-      cy.get("#password").type(this.cred.password);
+      cy.get("#email").type(credentials.email);
+      cy.get("#password").type(credentials.password);
       cy.get("#rememberMe").click();
 
       cy.get("#loginButton").click();
@@ -43,11 +47,10 @@ describe("OWASP juice shop - logged out", () => {
 });
 
 describe("OWASP juice shop - logged in", () => {
-  beforeEach(function() {
-    //cy.login('mc.safesearch@juice-sh.op', 'Mr. N00dles'),
-    cy.login(this.cred.email, this.cred.password),
-    cy.visit('/'),
-    cy.loggedIn()
+  beforeEach(() => {
+    cy.login(credentials.email, credentials.password);
+    cy.visit('/');
+    cy.loggedIn();
   });
 
   it("should visit some subpages", () => {
