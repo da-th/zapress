@@ -1,9 +1,7 @@
 {
     "name": "zapress",
     "version": "1.19.4",
-    "description": "added session handling with login, added using fixure,
-    changed cypress viewport in docker container for better usage
-    (less scrolling)",
+    "description": "added session handling with login, added using fixure, changed cypress viewport in docker container for better usage (less scrolling)",
     "main": "index.js",
     "scripts": {
         "start": "cypress open",
