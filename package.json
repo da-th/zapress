@@ -1,7 +1,7 @@
 {
     "name": "zapress",
-    "version": "1.19.2",
-    "description": "added session handling with login",
+    "version": "1.19.3",
+    "description": "added session handling with login, added using fixure",
     "main": "index.js",
     "scripts": {
         "start": "cypress open",

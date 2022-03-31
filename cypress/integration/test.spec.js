@@ -23,7 +23,7 @@ describe("OWASP juice shop - logged out", () => {
     cy.visit('/');
   });
 
-  it.only("should type in credentials, press the login button and be logged in",
+  it("should type in credentials, press the login button and be logged in",
     () => {
     cy.get("button[aria-label='Show the shopping cart']").should("not.exist");
 
@@ -44,27 +44,10 @@ describe("OWASP juice shop - logged out", () => {
 
     cy.getCookie('continueCode');
   });
-});
-
-describe("OWASP juice shop - logged in", () => {
-  beforeEach(() => {
-    cy.login(credentials.email, credentials.password);
-    cy.visit('/');
-    cy.loggedIn();
-  });
 
   it("should visit some subpages", () => {
     cy.visit("/#/about");
     cy.visit("/#/photo-wall");
-  });
-
-  it.only("should open profile and add username", () => {
-    cy.visit("/profile");
-
-    cy.get("#username").clear().type("someUsername");
-    cy.get("#submit").click();
-
-    cy.visit("/rest/user/data-export", { failOnStatusCode: false })
   });
 
   it("should open and close the item detail", () => {
@@ -85,4 +68,22 @@ describe("OWASP juice shop - logged in", () => {
     cy.get("#searchQuery").click();
     cy.get("#mat-input-0").clear().type(payload) + '{enter}';
   });
+});
+
+describe("OWASP juice shop - logged in", () => {
+  beforeEach(() => {
+    cy.login(credentials.email, credentials.password);
+    cy.visit('/');
+    cy.loggedIn();
+  });
+
+  it("should open profile and add username", () => {
+    cy.visit("/profile");
+
+    cy.get("#username").clear().type("someUsername");
+    cy.get("#submit").click();
+
+    cy.visit("/rest/user/data-export", { failOnStatusCode: false })
+  });
+
 });
