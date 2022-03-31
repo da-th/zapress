@@ -16,7 +16,7 @@ RUN apt install -y novnc websockify python3-numpy && ln -s /usr/share/novnc/vnc.
 RUN printf '#!/bin/sh\nunset SESSION_MANAGER\nunset DBUS_SESSION_BUS_ADDRESS\nexec startxfce4' > /usr/local/bin/start-window-manager && \
 	chmod +x /usr/local/bin/start-window-manager
 # Add script to start the VNC server (conditionally called by entrypoint.sh)
-RUN printf '#!/bin/sh\nvncserver -geometry 1280x1024 -localhost no -SecurityTypes None --I-KNOW-THIS-IS-INSECURE --xstartup /usr/local/bin/start-window-manager' > /usr/local/bin/start-vnc-server && \
+RUN printf '#!/bin/sh\nvncserver -geometry 1440x900 -localhost no -SecurityTypes None --I-KNOW-THIS-IS-INSECURE --xstartup /usr/local/bin/start-window-manager' > /usr/local/bin/start-vnc-server && \
 	chmod +x /usr/local/bin/start-vnc-server
 # Add script to start noVNC server (VNC web client)
 RUN printf '#!/bin/sh\nwebsockify -D --web=/usr/share/novnc/ 6901 localhost:5901' > /usr/local/bin/start-novnc && \
