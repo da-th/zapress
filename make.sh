@@ -31,6 +31,16 @@ EOF
   exit 1
 }
 
+# for demarcation from system output
+setZapAsProxy() {
+  echo ""
+  echo "########################################################"
+  echo ""
+  echo " Setting up ZAP as proxy..."
+  export HTTP_PROXY=http://${proxy_host}:8080
+  export HTTPS_PROXY=http://${proxy_host}:8080
+}
+
 # check running juice container
 checkJuice() {
   status="$(curl -I -s 'http://localhost:3000')"
@@ -143,8 +153,8 @@ while [ $# > 0  ]; do
     -uenv) shift && update;;
     -renv) shift && run;;
     -senv) shift && shutdown;;
-    -cd) shift && cypressDocker "$@";;
-    -cn) shift && cypressNative "$@";;
+    -cd) shift && checkJuice && cypressDocker "$@";;
+    -cn) shift && checkJuice && cypressNative "$@";;
     -cdhl) shift && checkJuice && cypressDockerHeadlessLocal;;
     -cdvl) shift && checkJuice && cypressDockerVisualLocal;;
     -cnhl) shift && checkJuice && cypressNativeHeadlessLocal;;
