@@ -31,16 +31,6 @@ EOF
   exit 1
 }
 
-# for demarcation from system output
-setZapAsProxy() {
-  echo ""
-  echo "########################################################"
-  echo ""
-  echo " Setting up ZAP as proxy..."
-  export HTTP_PROXY=http://${proxy_host}:8080
-  export HTTPS_PROXY=http://${proxy_host}:8080
-}
-
 # check running juice container
 checkJuice() {
   status="$(curl -I -s 'http://localhost:3000')"
