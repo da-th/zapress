@@ -1,5 +1,5 @@
 {
-    "experimentalSessionSupport": true,
+    "experimentalSessionAndOrigin": true,
     "viewportHeight": 900,
     "viewportWidth": 1440
 }
